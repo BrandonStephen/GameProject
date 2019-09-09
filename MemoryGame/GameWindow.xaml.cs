@@ -24,7 +24,9 @@ namespace MemoryGame
             
             InitializeComponent();
             Game game = new Game();
+            
             game.initialise();
+            
         }
     }
 
@@ -46,6 +48,7 @@ namespace MemoryGame
         {
 
             Grid grid = board.createGrids(board.ColourCount);
+            
             int count = 1;
             List<Brush> colours = new List<Brush>();
             colours.Add(Brushes.Red);
@@ -79,6 +82,7 @@ namespace MemoryGame
 
             }
 
+            
 
         }
 
