@@ -105,7 +105,26 @@ namespace MemoryGame
         public List<int> RandomPattern { get => randomPattern; set => randomPattern = value; }
         public string Difficulty { get => difficulty; set => difficulty = value; }
 
+        public void createGrids(int size)
+        {
+            Grid gamegrid = new Grid();
+            gamegrid.Width = 400;
+            gamegrid.HorizontalAlignment = HorizontalAlignment.Left;
+            gamegrid.VerticalAlignment = VerticalAlignment.Top;
+            gamegrid.ShowGridLines = true;
 
+            List<ColumnDefinition> gridCol = new List<ColumnDefinition>();
+            List<RowDefinition> gridRow = new List<RowDefinition>();
+
+            for (int i = 0; i < Math.Sqrt(size); i++)
+            {
+                gridCol.Add(new ColumnDefinition());
+                gridRow.Add(new RowDefinition());
+            }
+
+            foreach (ColumnDefinition cd in gridCol) gamegrid.ColumnDefinitions.Add(cd);
+            foreach (RowDefinition rd in gridRow) gamegrid.RowDefinitions.Add(rd);
+        }
     }
 
     class Colours
