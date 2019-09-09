@@ -17,16 +17,16 @@ The game will also present the score to the user, as well as save it to an SQL D
 `Methods`
 `SQL`
 
-# [Typespeed Game](http://inventwithpython.com/blogstatic/typespeed.png)
+### Updates
 
-##### Description 
-> A typing game where words slowly move to the right side of the screen. The player must type the word to make them disappear. The player loses after enough words hit the right side of the screen.
+- Created All Windows Forms
+- Created All essential Classes
+- Colour Boxes get dynamically created
+- Colour Boxes will trigger a universal event which will eventaully act as the Brain of the game
 
-- Text will move to the right every x amount of milliseconds
-- Will add and remove correct words from a DB
-- Stores data in a DB to keep it persistent
+### What Needs To Be Implemented
 
-`Classes`
-`Arrays`
-`Methods`
-`SQL`
+- DB Syncing
+- Fix Position of colour boxes
+- Add a score and wave hud for the user to see
+- Implement settings page

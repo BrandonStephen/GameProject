@@ -41,7 +41,7 @@ namespace MemoryGame
             {
                 pattern.Add(rn.Next(1, 17));
             }
-            Board board = new Board(16, pattern, "easy");
+            Board board = new Board(64, pattern, "easy");
             return board;
         }
 
@@ -113,10 +113,10 @@ namespace MemoryGame
         public Grid createGrids(int size)
         {
             Grid gamegrid = new Grid();
-            gamegrid.Width = 200;
-            gamegrid.HorizontalAlignment = HorizontalAlignment.Left;
-            gamegrid.VerticalAlignment = VerticalAlignment.Top;
-            gamegrid.ShowGridLines = true;
+            gamegrid.Width = 40 * Math.Sqrt(size);
+            gamegrid.HorizontalAlignment = HorizontalAlignment.Center;
+            gamegrid.VerticalAlignment = VerticalAlignment.Center;
+            gamegrid.ShowGridLines = false;
 
             List<ColumnDefinition> gridCol = new List<ColumnDefinition>();
             List<RowDefinition> gridRow = new List<RowDefinition>();
@@ -124,11 +124,11 @@ namespace MemoryGame
             for (int i = 0; i < Math.Sqrt(size); i++)
             {
                 ColumnDefinition tempCol = new ColumnDefinition();
-                tempCol.Width = new GridLength(30);
+                tempCol.Width = new GridLength(40);
                 gridCol.Add(tempCol);
 
                 RowDefinition temprow = new RowDefinition();
-                temprow.Height = new GridLength(30);
+                temprow.Height = new GridLength(40);
                 gridRow.Add(temprow);
             }
 
