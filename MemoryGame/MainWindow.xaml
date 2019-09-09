@@ -5,8 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MemoryGame"
         mc:Ignorable="d"
-        Title="Memory Game" Height="450" Width="800">
-    <Grid>
-        
+        Title="Memory Game" Height="450" Width="800" Background="#FF2E2222">
+    <Grid Margin="10,0,3.6,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="203*"/>
+            <ColumnDefinition Width="143*"/>
+            <ColumnDefinition Width="433*"/>
+        </Grid.ColumnDefinitions>
+        <Image x:Name="logoimg" HorizontalAlignment="Left" Height="81" Margin="3.8,10,0,0" VerticalAlignment="Top" Width="403" Source="Resources/logo.png" Grid.ColumnSpan="2" Grid.Column="1"/>
+        <Button x:Name="btnLeaderboards" Content="LeaderBoards" Grid.Column="1" HorizontalAlignment="Left" Margin="77.8,284,0,0" VerticalAlignment="Top" Width="240" Height="51" Grid.ColumnSpan="2" Click="BtnLeaderboards_Click"/>
+        <Button x:Name="btnSettings" Content="Settings" Grid.Column="1" HorizontalAlignment="Left" Margin="77.8,215,0,0" VerticalAlignment="Top" Width="240" Height="51" Grid.ColumnSpan="2" Click="BtnSettings_Click"/>
+        <Button x:Name="btnPlay" Content="Play" Grid.Column="1" HorizontalAlignment="Left" Margin="77.8,148,0,0" VerticalAlignment="Top" Width="240" Height="51" Grid.ColumnSpan="2" Click="BtnPlay_Click"/>
+
     </Grid>
 </Window>

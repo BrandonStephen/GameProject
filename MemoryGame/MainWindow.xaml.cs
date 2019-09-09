@@ -22,11 +22,28 @@ namespace MemoryGame
     {
         public MainWindow()
         {
-            
+
             InitializeComponent();
-            /*LeaderboardWindow leaderboard = new LeaderboardWindow();
-            *//*leaderboard.Owner = this;*//*
-            leaderboard.Show();*/
+
+        }
+
+        private void BtnPlay_Click(object sender, RoutedEventArgs e)
+        {
+            GameWindow game = new GameWindow();
+            this.Hide();
+            game.Show();
+        }
+
+        private void BtnSettings_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void BtnLeaderboards_Click(object sender, RoutedEventArgs e)
+        {
+            LeaderboardWindow lb = new LeaderboardWindow();
+            this.Hide();
+            lb.Show();
         }
     }
 }

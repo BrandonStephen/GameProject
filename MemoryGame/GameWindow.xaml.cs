@@ -21,7 +21,116 @@ namespace MemoryGame
     {
         public GameWindow()
         {
+            
             InitializeComponent();
+            Game game = new Game();
+            Grid grid = gamegrid;
+            game.initialise(grid);
+        }
+    }
+
+    class Game
+    {
+        public void initialise(Grid grid)
+        {
+            Random rn = new Random();
+            List<int> pattern = new List<int>();
+            for (int i = 0; i < 1000; i++)
+            {
+                pattern.Add(rn.Next(1, 17));
+            }
+            Board board = new Board(16, pattern, "easy");
+            start(grid, board);
+        }
+
+        public void start(Grid grid, Board board)
+        {
+            int count = 1;
+
+            List<Brush> colours = new List<Brush>();
+            colours.Add(Brushes.Red);
+            colours.Add(Brushes.Yellow);
+            colours.Add(Brushes.Blue);
+            colours.Add(Brushes.Green);
+            int colourSelect = 0;
+            int id = 0;
+
+
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    Button MyControl1 = new Button();
+                    MyControl1.Name = "Button"+id.ToString();
+                    MyControl1.Click += Button_Click;
+                    MyControl1.Background = colours[colourSelect];
+                    Colours col = new Colours(colours[colourSelect].ToString(), id);
+                    if (!(colourSelect >= 3)) { colourSelect++; }
+                    else { colourSelect = 0; }
+
+
+                    Grid.SetColumn(MyControl1, j);
+                    Grid.SetRow(MyControl1, i);
+                    grid.Children.Add(MyControl1);
+
+                    count++;
+                    id++;
+                }
+
+            }
+
+
+        }
+
+        public void Button_Click(object sender, EventArgs e)
+        {
+            Button b = (Button)sender;
+        }
+    }
+
+    class Board
+    {
+        private int colourCount;
+        private List<int> randomPattern;
+        private string difficulty;
+
+        public Board(int colourCount, List<int> randomPattern, string difficulty)
+        {
+            this.colourCount = colourCount;
+            this.randomPattern = randomPattern;
+            this.difficulty = difficulty;
+        }
+
+        public int ColourCount { get => colourCount; set => colourCount = value; }
+        public List<int> RandomPattern { get => randomPattern; set => randomPattern = value; }
+        public string Difficulty { get => difficulty; set => difficulty = value; }
+
+
+    }
+
+    class Colours
+    {
+        private string colour;
+        private int id;
+
+        public Colours(string colour, int id)
+        {
+            this.colour = colour;
+            this.id = id;
+        }
+
+        public string Colour { get => colour; set => colour = value; }
+        public int Id { get => id; set => id = value; }
+
+        
+    }
+
+    class DbManager
+    {
+        public string getDifficulty()
+        {
+            string difficulty = "";
+            return difficulty;
         }
     }
 }

@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace MemoryGame
 {
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Interaction logic for LeaderboardWindow.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class LeaderboardWindow : Window
     {
-        public Window1()
+        public LeaderboardWindow()
         {
             InitializeComponent();
         }
