@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MemoryGame"
         mc:Ignorable="d"
         Title="Memory Game" Height="450" Width="800" Background="#FF2E2222">
-    <Grid x:Name="tempGrid" HorizontalAlignment="Left" Height="311" Margin="10,78,0,0" VerticalAlignment="Top" Width="780"/>
+
 
     <!--<Grid x:Name="gamegrid" HorizontalAlignment="Left" Height="334" Margin="10,0,0,18" VerticalAlignment="Bottom" Width="780">
 

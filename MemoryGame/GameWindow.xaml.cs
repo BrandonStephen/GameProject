@@ -41,7 +41,7 @@ namespace MemoryGame
             {
                 pattern.Add(rn.Next(1, 17));
             }
-            Board board = new Board(64, pattern, "easy");
+            Board board = new Board(144, pattern, "easy");
             return board;
         }
 
@@ -60,9 +60,9 @@ namespace MemoryGame
             int id = 0;
 
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < Math.Sqrt(board.ColourCount); i++)
             {
-                for (int j = 0; j < 4; j++)
+                for (int j = 0; j < Math.Sqrt(board.ColourCount); j++)
                 {
                     Button MyControl1 = new Button();
                     MyControl1.Name = "Button"+id.ToString();
