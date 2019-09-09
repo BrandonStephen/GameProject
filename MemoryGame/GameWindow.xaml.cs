@@ -25,14 +25,15 @@ namespace MemoryGame
             InitializeComponent();
             Game game = new Game();
             
-            game.initialise();
+            Board board = game.initialise();
+            this.Content = game.start(board);
             
         }
     }
 
     class Game
     {
-        public void initialise()
+        public Board initialise()
         {
             Random rn = new Random();
             List<int> pattern = new List<int>();
@@ -41,10 +42,10 @@ namespace MemoryGame
                 pattern.Add(rn.Next(1, 17));
             }
             Board board = new Board(16, pattern, "easy");
-            start(board);
+            return board;
         }
 
-        public void start(Board board)
+        public Grid start(Board board)
         {
 
             Grid grid = board.createGrids(board.ColourCount);
@@ -70,7 +71,7 @@ namespace MemoryGame
                     Colours col = new Colours(colours[colourSelect].ToString(), id);
                     if (!(colourSelect >= 3)) { colourSelect++; }
                     else { colourSelect = 0; }
-
+                    
 
                     Grid.SetColumn(MyControl1, j);
                     Grid.SetRow(MyControl1, i);
@@ -82,7 +83,7 @@ namespace MemoryGame
 
             }
 
-            
+            return grid;
 
         }
 
@@ -112,7 +113,7 @@ namespace MemoryGame
         public Grid createGrids(int size)
         {
             Grid gamegrid = new Grid();
-            gamegrid.Width = 1000;
+            gamegrid.Width = 200;
             gamegrid.HorizontalAlignment = HorizontalAlignment.Left;
             gamegrid.VerticalAlignment = VerticalAlignment.Top;
             gamegrid.ShowGridLines = true;
@@ -122,11 +123,12 @@ namespace MemoryGame
 
             for (int i = 0; i < Math.Sqrt(size); i++)
             {
-
-                gridCol.Add(new ColumnDefinition());
+                ColumnDefinition tempCol = new ColumnDefinition();
+                tempCol.Width = new GridLength(30);
+                gridCol.Add(tempCol);
 
                 RowDefinition temprow = new RowDefinition();
-                temprow.Height = new GridLength(45);
+                temprow.Height = new GridLength(30);
                 gridRow.Add(temprow);
             }
 
