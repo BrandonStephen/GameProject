@@ -19,23 +19,33 @@ namespace MemoryGame
     /// </summary>
     public partial class GameWindow : Window
     {
+        private Board board;
+        private List<Colours> colours;
         public GameWindow()
         {
-            
-            InitializeComponent();
+
             Game game = new Game();
+            InitializeComponent();
             
-            Board board = game.initialise();
+            
+            Board board = game.initialise(lblScore, lblWave);
             this.tempGrid.Children.Add(game.start(board, out List<Colours> colours));
+            this.board = board;
+            this.colours = colours;
+            
+            
+        }
+
+        private void BtnStart_Click(object sender, RoutedEventArgs e)
+        {
+            Game game = new Game();
             game.begin(board, colours);
-            
-            
         }
     }
 
     class Game
     {
-        public Board initialise()
+        public Board initialise(Label score, Label wave)
         {
             Random rn = new Random();
             List<int> pattern = new List<int>();
@@ -44,7 +54,7 @@ namespace MemoryGame
             {
                 pattern.Add(rn.Next(1, (amount + 1)));
             }
-            Board board = new Board(amount, pattern, "easy", 40, 40, 0, 0);
+            Board board = new Board(amount, pattern, "easy", 40, 40, score, wave);
             return board;
         }
 
@@ -71,7 +81,7 @@ namespace MemoryGame
                     MyControl1.Name = "Button"+id.ToString();
                     MyControl1.Click += Button_Click;
                     MyControl1.Background = Hashcolours[colourSelect];
-                    colObj.Add(new Colours(Hashcolours[colourSelect].ToString(), id));
+                    colObj.Add(new Colours(Hashcolours[colourSelect].ToString(), id, MyControl1));
                     if (!(colourSelect >= 3)) { colourSelect++; }
                     else { colourSelect = 0; }
                     
@@ -93,10 +103,13 @@ namespace MemoryGame
 
         public void begin(Board board, List<Colours> colours)
         {
-            for (int i = 0; i < board.Wave + 1; i++)
+            for (int i = 0; i <= (Convert.ToInt32(board.Wave.Content) + 1); i++)
             {
-
+                colours[board.RandomPattern[i]].Button.Background = Brushes.Black;
+                System.Threading.Thread.Sleep(10);
+                colours[board.RandomPattern[i]].Button.Background = new BrushConverter().ConvertFromString(colours[board.RandomPattern[i]].Colour) as SolidColorBrush;
             }
+
         }
 
         public void Button_Click(object sender, EventArgs e)
@@ -112,10 +125,11 @@ namespace MemoryGame
         private string difficulty;
         private int height;
         private int width;
-        private int score;
-        private int wave;
+        private Label score;
+        private Label wave;
+        
 
-        public Board(int colourCount, List<int> randomPattern, string difficulty, int height, int width, int score, int wave)
+        public Board(int colourCount, List<int> randomPattern, string difficulty, int height, int width, Label score, Label wave)
         {
             this.colourCount = colourCount;
             this.randomPattern = randomPattern;
@@ -132,8 +146,8 @@ namespace MemoryGame
         public string Difficulty { get => difficulty; set => difficulty = value; }
         public int Height { get => height; set => height = value; }
         public int Width { get => width; set => width = value; }
-        public int Score { get => score; set => score = value; }
-        public int Wave { get => wave; set => wave = value; }
+        public Label Score { get => score; set => score = value; }
+        public Label Wave { get => wave; set => wave = value; }
 
         public Grid createGrids(int size, int width, int height)
         {
@@ -172,16 +186,19 @@ namespace MemoryGame
     {
         private string colour;
         private int id;
+        private Button button;
         
 
-        public Colours(string colour, int id)
+        public Colours(string colour, int id, Button button)
         {
             this.colour = colour;
             this.id = id;
+            this.button = button;
         }
 
         public string Colour { get => colour; set => colour = value; }
         public int Id { get => id; set => id = value; }
+        public Button Button { get => button; set => button = value; }
     }
 
     class DbManager

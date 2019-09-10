@@ -3,8 +3,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:MemoryGame"
         mc:Ignorable="d" Title="Memory Game" Height="450" Width="800" Background="#FF2E2222">
     <Grid HorizontalAlignment="Left" Height="414" Margin="10,0,0,0" VerticalAlignment="Top" Width="780">
-        <Label Content="Score: 0" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Width="124" Foreground="White"/>
-        <Label Content="Wave: 0" HorizontalAlignment="Left" Margin="659,10,0,0" VerticalAlignment="Top" Width="111" Foreground="White"/>
-        <Grid x:Name="tempGrid" HorizontalAlignment="Left" Height="363" Margin="10,41,0,0" VerticalAlignment="Top" Width="760"/>
+        <Label x:Name="lblScore" Content="0" HorizontalAlignment="Left" Margin="69,10,0,0" VerticalAlignment="Top" Width="28" Foreground="White" Height="26"/>
+        <Label x:Name="lblWave" Content="0" HorizontalAlignment="Left" Margin="750,10,0,0" VerticalAlignment="Top" Width="20" Foreground="White"/>
+        <Grid x:Name="tempGrid" HorizontalAlignment="Left" Height="363" Margin="10,41,0,0" VerticalAlignment="Top" Width="760">
+            <Label Content="Score" HorizontalAlignment="Left" Margin="6,-32,0,0" VerticalAlignment="Top" Height="24" Foreground="#FFFAFAFA"/>
+        </Grid>
+        <Button x:Name="btnStart" Content="Start" HorizontalAlignment="Left" Margin="350,10,0,0" VerticalAlignment="Top" Width="75" Click="BtnStart_Click"/>
+        <Label Content="Wave" HorizontalAlignment="Left" Margin="701,10,0,0" VerticalAlignment="Top" Width="44" Foreground="White" Height="26"/>
     </Grid>
 </Window>
