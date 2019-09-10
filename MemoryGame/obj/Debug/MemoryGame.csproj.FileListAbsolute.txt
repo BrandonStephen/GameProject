@@ -16,6 +16,5 @@ C:\Users\Brandon Stephens\Documents\Programming\Visual Studio Code\Game Project\
 C:\Users\Brandon Stephens\Documents\Programming\Visual Studio Code\Game Project\MemoryGame\MemoryGame\obj\Debug\MemoryGame.csproj.CoreCompileInputs.cache
 C:\Users\Brandon Stephens\Documents\Programming\Visual Studio Code\Game Project\MemoryGame\MemoryGame\obj\Debug\MemoryGame.exe
 C:\Users\Brandon Stephens\Documents\Programming\Visual Studio Code\Game Project\MemoryGame\MemoryGame\obj\Debug\MemoryGame.pdb
-C:\Users\Brandon Stephens\Documents\Programming\Visual Studio Code\Game Project\MemoryGame\MemoryGame\obj\Debug\SettingdWindow.g.cs
-C:\Users\Brandon Stephens\Documents\Programming\Visual Studio Code\Game Project\MemoryGame\MemoryGame\obj\Debug\SettingdWindow.baml
-C:\Users\Brandon Stephens\Documents\Programming\Visual Studio Code\Game Project\MemoryGame\MemoryGame\obj\Debug\MemoryGame.csprojAssemblyReference.cache
+C:\Users\Brandon Stephens\Documents\Programming\Visual Studio Code\Game Project\MemoryGame\MemoryGame\obj\Debug\SettingsWindow.g.cs
+C:\Users\Brandon Stephens\Documents\Programming\Visual Studio Code\Game Project\MemoryGame\MemoryGame\obj\Debug\SettingsWindow.baml

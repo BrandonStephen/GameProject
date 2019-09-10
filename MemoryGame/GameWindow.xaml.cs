@@ -26,7 +26,8 @@ namespace MemoryGame
             Game game = new Game();
             
             Board board = game.initialise();
-            this.Content = game.start(board, out List<Colours> colours);
+            this.tempGrid.Children.Add(game.start(board, out List<Colours> colours));
+            game.begin(board, colours);
             
             
         }
@@ -38,11 +39,12 @@ namespace MemoryGame
         {
             Random rn = new Random();
             List<int> pattern = new List<int>();
+            int amount = 16;
             for (int i = 0; i < 1000; i++)
             {
-                pattern.Add(rn.Next(1, 17));
+                pattern.Add(rn.Next(1, (amount + 1)));
             }
-            Board board = new Board(169, pattern, "easy", 40, 40);
+            Board board = new Board(amount, pattern, "easy", 40, 40, 0, 0);
             return board;
         }
 
@@ -89,6 +91,14 @@ namespace MemoryGame
 
         }
 
+        public void begin(Board board, List<Colours> colours)
+        {
+            for (int i = 0; i < board.Wave + 1; i++)
+            {
+
+            }
+        }
+
         public void Button_Click(object sender, EventArgs e)
         {
             Button b = (Button)sender;
@@ -102,14 +112,19 @@ namespace MemoryGame
         private string difficulty;
         private int height;
         private int width;
+        private int score;
+        private int wave;
 
-        public Board(int colourCount, List<int> randomPattern, string difficulty, int height, int width)
+        public Board(int colourCount, List<int> randomPattern, string difficulty, int height, int width, int score, int wave)
         {
             this.colourCount = colourCount;
             this.randomPattern = randomPattern;
             this.difficulty = difficulty;
             this.height = height;
             this.width = width;
+            this.score = score;
+            this.wave = wave;
+
         }
 
         public int ColourCount { get => colourCount; set => colourCount = value; }
@@ -117,6 +132,8 @@ namespace MemoryGame
         public string Difficulty { get => difficulty; set => difficulty = value; }
         public int Height { get => height; set => height = value; }
         public int Width { get => width; set => width = value; }
+        public int Score { get => score; set => score = value; }
+        public int Wave { get => wave; set => wave = value; }
 
         public Grid createGrids(int size, int width, int height)
         {
