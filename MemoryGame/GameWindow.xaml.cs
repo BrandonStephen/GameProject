@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace MemoryGame
 {
@@ -28,7 +30,7 @@ namespace MemoryGame
             InitializeComponent();
             
             
-            Board board = game.initialise(lblScore, lblWave);
+            Board board = game.initialise(lblScore, lblWave, btnStart);
             this.tempGrid.Children.Add(game.start(board, out List<Colours> colours));
             this.board = board;
             this.colours = colours;
@@ -39,22 +41,25 @@ namespace MemoryGame
         private void BtnStart_Click(object sender, RoutedEventArgs e)
         {
             Game game = new Game();
+            board.StartGame.IsEnabled = false;
             game.begin(board, colours);
         }
     }
 
     class Game
     {
-        public Board initialise(Label score, Label wave)
+        private List<Colours> colours;
+        private Board board;
+        public Board initialise(Label score, Label wave, Button start)
         {
             Random rn = new Random();
             List<int> pattern = new List<int>();
-            int amount = 16;
+            int amount = 64;
             for (int i = 0; i < 1000; i++)
             {
-                pattern.Add(rn.Next(1, (amount + 1)));
+                pattern.Add(rn.Next(16));
             }
-            Board board = new Board(amount, pattern, "easy", 40, 40, score, wave);
+            Board board = new Board(amount, pattern, "easy", 40, 40, score, wave, start, new List<int>());
             return board;
         }
 
@@ -96,25 +101,53 @@ namespace MemoryGame
 
             }
 
+            this.colours = colObj;
+            this.board = board;
             colours = colObj;
             return grid;
 
         }
 
-        public void begin(Board board, List<Colours> colours)
+        public async void begin(Board board, List<Colours> colours)
         {
-            for (int i = 0; i <= (Convert.ToInt32(board.Wave.Content) + 1); i++)
+            for (int i = 0; i < (Convert.ToInt32(board.Wave.Content)); i++)
             {
-                colours[board.RandomPattern[i]].Button.Background = Brushes.Black;
-                System.Threading.Thread.Sleep(10);
-                colours[board.RandomPattern[i]].Button.Background = new BrushConverter().ConvertFromString(colours[board.RandomPattern[i]].Colour) as SolidColorBrush;
+                colours[board.RandomPattern[i]].Button.IsEnabled = false;
+                await Task.Delay(2000);
+                colours[board.RandomPattern[i]].Button.IsEnabled = true;  //Background = new BrushConverter().ConvertFromString(colours[board.RandomPattern[i]].Colour) as SolidColorBrush;
+       
             }
+            int tempWave = Convert.ToInt32(board.Wave.Content);
+            tempWave++;
+            board.Wave.Content = tempWave.ToString();
 
         }
 
         public void Button_Click(object sender, EventArgs e)
         {
             Button b = (Button)sender;
+            string tempString = b.Name.Replace("Button", "");
+            this.board.UserChoice.Add(Convert.ToInt32(tempString));
+            CheckPattern();
+        }
+
+        private void CheckPattern()
+        {
+            if (board.UserChoice.Count == Convert.ToInt32(board.Wave.Content) - 1)
+            {
+                for (int i = 0; i < board.UserChoice.Count; i++)
+                {
+                    if (!(board.UserChoice[i] == board.RandomPattern[i]))
+                    {
+
+                        MessageBox.Show("Failed");
+                        break;
+                        
+                    }
+                }
+                board.UserChoice.Clear();
+                begin(board, colours);
+            }
         }
     }
 
@@ -127,9 +160,11 @@ namespace MemoryGame
         private int width;
         private Label score;
         private Label wave;
+        private Button startGame;
+        private List<int> userChoice;
         
 
-        public Board(int colourCount, List<int> randomPattern, string difficulty, int height, int width, Label score, Label wave)
+        public Board(int colourCount, List<int> randomPattern, string difficulty, int height, int width, Label score, Label wave, Button start, List<int> userList)
         {
             this.colourCount = colourCount;
             this.randomPattern = randomPattern;
@@ -138,6 +173,8 @@ namespace MemoryGame
             this.width = width;
             this.score = score;
             this.wave = wave;
+            this.startGame = start;
+            this.userChoice = userList;
 
         }
 
@@ -148,6 +185,8 @@ namespace MemoryGame
         public int Width { get => width; set => width = value; }
         public Label Score { get => score; set => score = value; }
         public Label Wave { get => wave; set => wave = value; }
+        public Button StartGame { get => startGame; set => startGame = value; }
+        public List<int> UserChoice { get => userChoice; set => userChoice = value; }
 
         public Grid createGrids(int size, int width, int height)
         {

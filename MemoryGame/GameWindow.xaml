@@ -4,7 +4,7 @@
         mc:Ignorable="d" Title="Memory Game" Height="450" Width="800" Background="#FF2E2222">
     <Grid HorizontalAlignment="Left" Height="414" Margin="10,0,0,0" VerticalAlignment="Top" Width="780">
         <Label x:Name="lblScore" Content="0" HorizontalAlignment="Left" Margin="69,10,0,0" VerticalAlignment="Top" Width="28" Foreground="White" Height="26"/>
-        <Label x:Name="lblWave" Content="0" HorizontalAlignment="Left" Margin="750,10,0,0" VerticalAlignment="Top" Width="20" Foreground="White"/>
+        <Label x:Name="lblWave" Content="1" HorizontalAlignment="Left" Margin="745,10,0,0" VerticalAlignment="Top" Width="25" Foreground="White"/>
         <Grid x:Name="tempGrid" HorizontalAlignment="Left" Height="363" Margin="10,41,0,0" VerticalAlignment="Top" Width="760">
             <Label Content="Score" HorizontalAlignment="Left" Margin="6,-32,0,0" VerticalAlignment="Top" Height="24" Foreground="#FFFAFAFA"/>
         </Grid>
