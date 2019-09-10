@@ -36,12 +36,14 @@ namespace MemoryGame
 
         private void BtnSettings_Click(object sender, RoutedEventArgs e)
         {
-            
+            SettingsWindow sw = new SettingsWindow();
+            this.Hide();
+            sw.Show();
         }
 
         private void BtnLeaderboards_Click(object sender, RoutedEventArgs e)
         {
-            LeaderboardWindow lb = new LeaderboardWindow();
+            LeaderBoardWindow lb = new LeaderBoardWindow();
             this.Hide();
             lb.Show();
         }

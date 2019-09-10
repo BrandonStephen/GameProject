@@ -26,7 +26,8 @@ namespace MemoryGame
             Game game = new Game();
             
             Board board = game.initialise();
-            this.Content = game.start(board);
+            this.Content = game.start(board, out List<Colours> colours);
+            
             
         }
     }
@@ -41,21 +42,21 @@ namespace MemoryGame
             {
                 pattern.Add(rn.Next(1, 17));
             }
-            Board board = new Board(144, pattern, "easy");
+            Board board = new Board(169, pattern, "easy", 40, 40);
             return board;
         }
 
-        public Grid start(Board board)
+        public Grid start(Board board, out List<Colours> colours)
         {
 
-            Grid grid = board.createGrids(board.ColourCount);
-            
+            Grid grid = board.createGrids(board.ColourCount, board.Height, board.Width);
+            List<Colours> colObj = new List<Colours>();
             int count = 1;
-            List<Brush> colours = new List<Brush>();
-            colours.Add(Brushes.Red);
-            colours.Add(Brushes.Yellow);
-            colours.Add(Brushes.Blue);
-            colours.Add(Brushes.Green);
+            List<Brush> Hashcolours = new List<Brush>();
+            Hashcolours.Add(Brushes.Red);
+            Hashcolours.Add(Brushes.Yellow);
+            Hashcolours.Add(Brushes.Blue);
+            Hashcolours.Add(Brushes.Green);
             int colourSelect = 0;
             int id = 0;
 
@@ -67,8 +68,8 @@ namespace MemoryGame
                     Button MyControl1 = new Button();
                     MyControl1.Name = "Button"+id.ToString();
                     MyControl1.Click += Button_Click;
-                    MyControl1.Background = colours[colourSelect];
-                    Colours col = new Colours(colours[colourSelect].ToString(), id);
+                    MyControl1.Background = Hashcolours[colourSelect];
+                    colObj.Add(new Colours(Hashcolours[colourSelect].ToString(), id));
                     if (!(colourSelect >= 3)) { colourSelect++; }
                     else { colourSelect = 0; }
                     
@@ -83,6 +84,7 @@ namespace MemoryGame
 
             }
 
+            colours = colObj;
             return grid;
 
         }
@@ -98,22 +100,29 @@ namespace MemoryGame
         private int colourCount;
         private List<int> randomPattern;
         private string difficulty;
+        private int height;
+        private int width;
 
-        public Board(int colourCount, List<int> randomPattern, string difficulty)
+        public Board(int colourCount, List<int> randomPattern, string difficulty, int height, int width)
         {
             this.colourCount = colourCount;
             this.randomPattern = randomPattern;
             this.difficulty = difficulty;
+            this.height = height;
+            this.width = width;
         }
 
         public int ColourCount { get => colourCount; set => colourCount = value; }
         public List<int> RandomPattern { get => randomPattern; set => randomPattern = value; }
         public string Difficulty { get => difficulty; set => difficulty = value; }
+        public int Height { get => height; set => height = value; }
+        public int Width { get => width; set => width = value; }
 
-        public Grid createGrids(int size)
+        public Grid createGrids(int size, int width, int height)
         {
             Grid gamegrid = new Grid();
-            gamegrid.Width = 40 * Math.Sqrt(size);
+            gamegrid.Width = width * Math.Sqrt(size);
+            gamegrid.Height = height * Math.Sqrt(size);
             gamegrid.HorizontalAlignment = HorizontalAlignment.Center;
             gamegrid.VerticalAlignment = VerticalAlignment.Center;
             gamegrid.ShowGridLines = false;
@@ -124,11 +133,11 @@ namespace MemoryGame
             for (int i = 0; i < Math.Sqrt(size); i++)
             {
                 ColumnDefinition tempCol = new ColumnDefinition();
-                tempCol.Width = new GridLength(40);
+                tempCol.Width = new GridLength(height);
                 gridCol.Add(tempCol);
 
                 RowDefinition temprow = new RowDefinition();
-                temprow.Height = new GridLength(40);
+                temprow.Height = new GridLength(width);
                 gridRow.Add(temprow);
             }
 
@@ -146,6 +155,7 @@ namespace MemoryGame
     {
         private string colour;
         private int id;
+        
 
         public Colours(string colour, int id)
         {
@@ -155,8 +165,6 @@ namespace MemoryGame
 
         public string Colour { get => colour; set => colour = value; }
         public int Id { get => id; set => id = value; }
-
-        
     }
 
     class DbManager

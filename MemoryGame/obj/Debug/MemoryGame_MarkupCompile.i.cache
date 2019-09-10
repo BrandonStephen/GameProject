@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Brandon Stephens\Documents\Programming\Visual Studio Code\Game Project\MemoryGame\MemoryGame\App.xaml
-41527292193
+4-418274358
 
-91099879095
+92098451808
 141183416626
-GameWindow.xaml;SettingdWindow.xaml;MainWindow.xaml;LeaderBoardWindow.xaml;
+GameWindow.xaml;LeaderBoardWindow.xaml;MainWindow.xaml;SettingsWindow.xaml;
 
-False
+True
 
