@@ -46,7 +46,7 @@ namespace MemoryGame
         }
     }
 
-    class Game
+    class Game : Window
     {
         private List<Colours> colours;
         private Board board;
@@ -74,7 +74,12 @@ namespace MemoryGame
             Hashcolours.Add(Brushes.Yellow);
             Hashcolours.Add(Brushes.Blue);
             Hashcolours.Add(Brushes.Green);
-            int colourSelect = 0;
+            Hashcolours.Add(Brushes.Black);
+            Hashcolours.Add(Brushes.Purple);
+            Hashcolours.Add(Brushes.Pink);
+            Hashcolours.Add(Brushes.Cyan);
+
+            Random rnd = new Random();
             int id = 0;
 
 
@@ -82,13 +87,13 @@ namespace MemoryGame
             {
                 for (int j = 0; j < Math.Sqrt(board.ColourCount); j++)
                 {
+                    int newColour = rnd.Next(8);
                     Button MyControl1 = new Button();
                     MyControl1.Name = "Button"+id.ToString();
                     MyControl1.Click += Button_Click;
-                    MyControl1.Background = Hashcolours[colourSelect];
-                    colObj.Add(new Colours(Hashcolours[colourSelect].ToString(), id, MyControl1));
-                    if (!(colourSelect >= 3)) { colourSelect++; }
-                    else { colourSelect = 0; }
+                    MyControl1.Background = Hashcolours[newColour];
+                    colObj.Add(new Colours(Hashcolours[newColour].ToString(), id, MyControl1));
+                    
                     
 
                     Grid.SetColumn(MyControl1, j);
@@ -141,16 +146,21 @@ namespace MemoryGame
                     {
 
                         MessageBox.Show("Failed");
+                        this.Hide();
+                        MainWindow mw = new MainWindow();
+                        mw.Show();
                         break;
                         
                     }
                 }
                 board.UserChoice.Clear();
+                double tempScore = Convert.ToInt32(board.Score.Content);
+                tempScore += (board.UserChoice.Count * (10 * Math.Sqrt(board.ColourCount)));
+                board.Score.Content = tempScore.ToString();
                 begin(board, colours);
             }
         }
     }
-
     class Board
     {
         private int colourCount;
