@@ -54,12 +54,14 @@ namespace MemoryGame
         {
             Random rn = new Random();
             List<int> pattern = new List<int>();
-            int amount = 64;
+            DBManager db = new DBManager();
+            Settings settings = db.checkSettings();
+            
             for (int i = 0; i < 1000; i++)
             {
-                pattern.Add(rn.Next(16));
+                pattern.Add(rn.Next((settings.GridSize * settings.GridSize)));
             }
-            Board board = new Board(amount, pattern, "easy", 40, 40, score, wave, start, new List<int>());
+            Board board = new Board((settings.GridSize * settings.GridSize), pattern, settings.Difficulty, 40, 40, score, wave, start, new List<int>());
             return board;
         }
 
@@ -81,7 +83,8 @@ namespace MemoryGame
 
             Random rnd = new Random();
             int id = 0;
-
+            DBManager db = new DBManager();
+            Settings settings = db.checkSettings();
 
             for (int i = 0; i < Math.Sqrt(board.ColourCount); i++)
             {
@@ -91,10 +94,16 @@ namespace MemoryGame
                     Button MyControl1 = new Button();
                     MyControl1.Name = "Button"+id.ToString();
                     MyControl1.Click += Button_Click;
-                    MyControl1.Background = Hashcolours[newColour];
-                    colObj.Add(new Colours(Hashcolours[newColour].ToString(), id, MyControl1));
-                    
-                    
+
+                    if (settings.MultiColour)
+                    {
+                        MyControl1.Background = Hashcolours[newColour];
+                        colObj.Add(new Colours(Hashcolours[newColour].ToString(), id, MyControl1));
+                    }
+                    else {
+                        MyControl1.Background = Hashcolours[0];
+                        colObj.Add(new Colours(Hashcolours[0].ToString(), id, MyControl1));
+                    }
 
                     Grid.SetColumn(MyControl1, j);
                     Grid.SetRow(MyControl1, i);
@@ -118,6 +127,7 @@ namespace MemoryGame
             for (int i = 0; i < (Convert.ToInt32(board.Wave.Content)); i++)
             {
                 colours[board.RandomPattern[i]].Button.IsEnabled = false;
+                Console.Beep();
                 await Task.Delay(2000);
                 colours[board.RandomPattern[i]].Button.IsEnabled = true;  //Background = new BrushConverter().ConvertFromString(colours[board.RandomPattern[i]].Colour) as SolidColorBrush;
        

@@ -24,11 +24,11 @@ namespace MemoryGame
             InitializeComponent();
             DBManager db = new DBManager();
             Settings tempsettings = db.checkSettings();
-            if (!(tempsettings.Equals(null)))
+            if (!(tempsettings == null))
             {
                 txtName.Text = tempsettings.Name;
                 cmbDifficulty.Text = tempsettings.Difficulty;
-                cmbGridSize.Text = tempsettings.GridSize.ToString();
+                cmbGridSize.Text = $"{tempsettings.GridSize.ToString()}*{tempsettings.GridSize.ToString()}";
                 cmbMultiColour.Text = tempsettings.MultiColour.ToString();
                 cmbLeaderboards.Text = tempsettings.LeaderBoards.ToString();
 
@@ -39,12 +39,12 @@ namespace MemoryGame
         {
             rctSaved.Fill = Brushes.Green;
             Settings settings = new Settings(txtName.Text, cmbDifficulty.Text,
-                Convert.ToInt32(cmbDifficulty.Text.Substring(0,0)), Convert.ToBoolean(cmbMultiColour.Text),
+                Convert.ToInt32(cmbGridSize.Text.Substring(0,1)), Convert.ToBoolean(cmbMultiColour.Text),
                 Convert.ToBoolean(cmbLeaderboards.Text));
 
             DBManager db = new DBManager();
             Settings tempSettings = db.checkSettings();
-            if (tempSettings.Equals(null))
+            if (tempSettings == null)
             {
                 db.addSettings(settings);
             }

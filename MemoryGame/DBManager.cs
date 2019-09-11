@@ -48,8 +48,7 @@ namespace MemoryGame
             try
             {
                 conn.Open();
-                SqlCommand insert = new SqlCommand($"INSERT INTO leaderboards_table VALUES ({leaderboard.Name}, {leaderboard.Difficulty}," +
-                    $"{leaderboard.GridSize}, {leaderboard.Score}, {leaderboard.Wave})", conn);
+                SqlCommand insert = new SqlCommand($"INSERT INTO leaderboards_table VALUES ('{leaderboard.Name}', '{leaderboard.Difficulty}','{leaderboard.GridSize}', '{leaderboard.Score}', '{leaderboard.Wave}')", conn);
                 insert.ExecuteReader();
             }
             catch (SqlException sql)
@@ -69,9 +68,9 @@ namespace MemoryGame
             try
             {
                 conn.Open();
-                SqlCommand select = new SqlCommand($"SELECT * FROM settings_table");
+                SqlCommand select = new SqlCommand($"SELECT * FROM settings_table", conn);
                 SqlDataReader reader = select.ExecuteReader();
-                
+
 
                 while (reader.Read())
                 {
@@ -80,7 +79,11 @@ namespace MemoryGame
                 Convert.ToBoolean(reader["leaderboard"].ToString()));
                 }
 
-              
+
+            }
+            catch (InvalidOperationException noSql)
+            {
+                settings = null;
             }
             catch (SqlException sql)
             {
@@ -99,8 +102,8 @@ namespace MemoryGame
             try
             {
                 conn.Open();
-                SqlCommand add = new SqlCommand($"INSERT INTO settings_table VALUES ({settings.Name}, {settings.Difficulty}, " +
-                    $"{settings.GridSize}, {settings.MultiColour.ToString()}, {settings.LeaderBoards.ToString()})");
+                SqlCommand add = new SqlCommand($"INSERT INTO settings_table VALUES ('{settings.Name}', '{settings.Difficulty}', '{settings.GridSize}', '{settings.MultiColour.ToString()}', '{settings.LeaderBoards.ToString()}')", conn);
+                add.ExecuteReader();
             }
             catch (SqlException sql)
             {
@@ -113,7 +116,9 @@ namespace MemoryGame
 
         public void updateSettings(Settings settings)
         {
-
+            conn.Open();
+            SqlCommand update = new SqlCommand($"UPDATE settings_table SET name = '{settings.Name}', difficulty = '{settings.Difficulty}', gridsize = '{settings.GridSize}', multicolour = '{settings.MultiColour}', leaderboard = '{settings.LeaderBoards}'", conn);
+            update.ExecuteReader();
         }
     }
 }
