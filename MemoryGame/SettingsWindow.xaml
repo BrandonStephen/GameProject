@@ -11,7 +11,7 @@
         <Label Content="Grid Size" HorizontalAlignment="Left" Margin="10,174,0,0" VerticalAlignment="Top" Width="248" Foreground="White" Height="39" FontSize="20" FontFamily="Stencil"/>
         <Label Content="Multi-Colour" HorizontalAlignment="Left" Margin="10,222,0,0" VerticalAlignment="Top" Width="248" Foreground="White" Height="39" FontSize="20" FontFamily="Stencil"/>
         <Label Content="Name" HorizontalAlignment="Left" Margin="10,56,0,0" VerticalAlignment="Top" Width="248" Foreground="White" Height="39" FontSize="20" FontFamily="Stencil"/>
-        <TextBox HorizontalAlignment="Left" Height="39" Margin="322,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="381" Background="#FF624F4F" FontSize="22" FontWeight="Bold" FontFamily="Stencil"/>
+        <TextBox x:Name="txtName" HorizontalAlignment="Left" Height="39" Margin="322,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="381" Background="#FF624F4F" FontSize="22" FontWeight="Bold" FontFamily="Stencil"/>
         <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="244,376,0,0" VerticalAlignment="Top" Width="132" Height="34" Click="BtnSave_Click" Background="#FF624F4F" Foreground="White"/>
         <Rectangle x:Name="rctSaved" Fill="Transparent" HorizontalAlignment="Left" Height="19" Margin="0,5,-0.4,0" Stroke="Transparent" VerticalAlignment="Top" Width="794"/>
         <ComboBox x:Name="cmbDifficulty" HorizontalAlignment="Left" Margin="322,126,0,0" VerticalAlignment="Top" Width="381" Height="39" Foreground="#FF624F4F" BorderBrush="#FF624F4F" FontSize="22" FontFamily="Stencil">
