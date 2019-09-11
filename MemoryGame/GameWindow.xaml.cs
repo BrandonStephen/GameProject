@@ -128,7 +128,7 @@ namespace MemoryGame
             {
                 colours[board.RandomPattern[i]].Button.IsEnabled = false;
                 Console.Beep();
-                await Task.Delay(2000);
+                await Task.Delay(getWaitTime(board));
                 colours[board.RandomPattern[i]].Button.IsEnabled = true;  //Background = new BrushConverter().ConvertFromString(colours[board.RandomPattern[i]].Colour) as SolidColorBrush;
        
             }
@@ -136,6 +136,27 @@ namespace MemoryGame
             tempWave++;
             board.Wave.Content = tempWave.ToString();
 
+        }
+
+        public int getWaitTime(Board board)
+        {
+            int time = 0;
+            switch (board.Difficulty)
+            {
+                case "Easy":
+                    time = 2000;
+                    break;
+                case "Medium":
+                    time = 1500;
+                    break;
+                case "Hard":
+                    time = 1000;
+                    break;
+                case "Impossible":
+                    time = 500;
+                    break;
+            }
+            return time;
         }
 
         public void Button_Click(object sender, EventArgs e)
