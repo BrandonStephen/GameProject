@@ -46,7 +46,7 @@ namespace MemoryGame
         }
     }
 
-    class Game : Window
+    class Game
     {
         private List<Colours> colours;
         private Board board;
@@ -146,16 +146,15 @@ namespace MemoryGame
                     {
 
                         MessageBox.Show("Failed");
-                        this.Hide();
                         MainWindow mw = new MainWindow();
-                        mw.Show();
+                        
                         break;
                         
                     }
                 }
                 board.UserChoice.Clear();
                 double tempScore = Convert.ToInt32(board.Score.Content);
-                tempScore += (board.UserChoice.Count * (10 * Math.Sqrt(board.ColourCount)));
+                tempScore += 1 + (board.UserChoice.Count * (10 * Math.Sqrt(board.ColourCount)));
                 board.Score.Content = tempScore.ToString();
                 begin(board, colours);
             }
@@ -172,6 +171,7 @@ namespace MemoryGame
         private Label wave;
         private Button startGame;
         private List<int> userChoice;
+
         
 
         public Board(int colourCount, List<int> randomPattern, string difficulty, int height, int width, Label score, Label wave, Button start, List<int> userList)

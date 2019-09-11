@@ -23,5 +23,19 @@ namespace MemoryGame
         {
             InitializeComponent();
         }
+
+        private async void BtnSave_Click(object sender, RoutedEventArgs e)
+        {
+            rctSaved.Fill = Brushes.Green;
+            await Task.Delay(2000);
+            rctSaved.Fill = Brushes.Transparent;
+        }
+
+        private void BtnHome_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+            MainWindow mw = new MainWindow();
+            mw.Show();
+        }
     }
 }

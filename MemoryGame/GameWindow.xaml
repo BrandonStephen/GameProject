@@ -2,13 +2,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:MemoryGame"
         mc:Ignorable="d" Title="Memory Game" Height="450" Width="800" Background="#FF2E2222">
-    <Grid HorizontalAlignment="Left" Height="414" Margin="10,0,0,0" VerticalAlignment="Top" Width="780">
-        <Label x:Name="lblScore" Content="0" HorizontalAlignment="Left" Margin="69,10,0,0" VerticalAlignment="Top" Width="28" Foreground="White" Height="26"/>
-        <Label x:Name="lblWave" Content="1" HorizontalAlignment="Left" Margin="745,10,0,0" VerticalAlignment="Top" Width="25" Foreground="White"/>
-        <Grid x:Name="tempGrid" HorizontalAlignment="Left" Height="363" Margin="10,41,0,0" VerticalAlignment="Top" Width="760">
-            <Label Content="Score" HorizontalAlignment="Left" Margin="6,-32,0,0" VerticalAlignment="Top" Height="24" Foreground="#FFFAFAFA"/>
+    <Grid HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="790">
+        <Label x:Name="lblScore" Content="0" HorizontalAlignment="Left" Margin="60,0,0,0" VerticalAlignment="Top" Width="41" Foreground="White" Height="26"/>
+        <Label x:Name="lblWave" Content="1" HorizontalAlignment="Left" Margin="745,4,0,0" VerticalAlignment="Top" Width="25" Foreground="White"/>
+        <Grid x:Name="tempGrid" HorizontalAlignment="Left" Height="368" Margin="10,41,0,0" VerticalAlignment="Top" Width="770" RenderTransformOrigin="0.595,0.496">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="0*"/>
+            </Grid.ColumnDefinitions>
         </Grid>
-        <Button x:Name="btnStart" Content="Start" HorizontalAlignment="Left" Margin="350,10,0,0" VerticalAlignment="Top" Width="75" Click="BtnStart_Click"/>
-        <Label Content="Wave" HorizontalAlignment="Left" Margin="701,10,0,0" VerticalAlignment="Top" Width="44" Foreground="White" Height="26"/>
+        <Button x:Name="btnStart" Content="Start" HorizontalAlignment="Left" Margin="314,7,0,0" VerticalAlignment="Top" Width="75" Click="BtnStart_Click"/>
+        <Label Content="Wave" HorizontalAlignment="Left" Margin="701,4,0,0" VerticalAlignment="Top" Width="44" Foreground="White" Height="26"/>
+        <Button x:Name="btnMainManu" Content="Main Menu" HorizontalAlignment="Left" Margin="394,7,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label Content="Score" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="26" Foreground="White"/>
     </Grid>
 </Window>
