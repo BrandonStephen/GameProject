@@ -155,6 +155,13 @@ namespace MemoryGame
                     if (!(board.UserChoice[i] == board.RandomPattern[i]))
                     {
 
+                        DBManager db = new DBManager();
+                        Settings settings = db.checkSettings();
+                        if (settings.LeaderBoards)
+                        {
+                            Leaderboard leaderboard = new Leaderboard(settings.Name, Convert.ToInt32(board.Score.Content), Convert.ToInt32(board.Wave.Content), board.Difficulty, board.ColourCount);
+                            db.addToLeaderboards(leaderboard);
+                        }
                         MessageBox.Show("Failed");
                         MainWindow mw = new MainWindow();
                         

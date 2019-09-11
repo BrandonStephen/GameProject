@@ -22,6 +22,26 @@ namespace MemoryGame
         public LeaderBoardWindow()
         {
             InitializeComponent();
+            DBManager db = new DBManager();
+            List<Leaderboard> leaderboards = db.displayLeaderboards();
+            foreach (Leaderboard lb in leaderboards)
+            {
+                TextBox tx = new TextBox();
+                tx.Text = $"{lb.Name} | {lb.Difficulty} | {lb.GridSize} | {lb.Score} | {lb.Wave}";
+                lsLeaderboard.Items.Add(tx.Text);
+            }
+        }
+
+        private void BtnHome_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mw = new MainWindow();
+            this.Hide();
+            mw.Show();
+        }
+
+        private void BtnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

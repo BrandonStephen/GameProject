@@ -18,13 +18,14 @@ namespace MemoryGame
             try
             {
                 conn.Open();
-                SqlCommand select = new SqlCommand($"select * from Games", conn);
+                SqlCommand select = new SqlCommand($"select * from leaderboards_table", conn);
                 SqlDataReader reader = select.ExecuteReader();
                 
                 
                 while (reader.Read())
                 {
-                    
+                    leaderboards.Add(new Leaderboard(reader["name"].ToString(), Convert.ToInt32(reader["score"]), Convert.ToInt32(reader["wave"]),
+                        reader["difficulty"].ToString(), Convert.ToInt32(reader["gridsize"])));
                 }
            
             }
@@ -48,7 +49,7 @@ namespace MemoryGame
             try
             {
                 conn.Open();
-                SqlCommand insert = new SqlCommand($"INSERT INTO leaderboards_table VALUES ('{leaderboard.Name}', '{leaderboard.Difficulty}','{leaderboard.GridSize}', '{leaderboard.Score}', '{leaderboard.Wave}')", conn);
+                SqlCommand insert = new SqlCommand($"INSERT INTO leaderboards_table VALUES ('{leaderboard.Name}', '{leaderboard.Difficulty}','{leaderboard.GridSize.ToString()}', '{leaderboard.Score.ToString()}', '{leaderboard.Wave.ToString()}')", conn);
                 insert.ExecuteReader();
             }
             catch (SqlException sql)

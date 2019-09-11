@@ -5,8 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MemoryGame"
         mc:Ignorable="d"
-        Title="LeaderBoardWindow" Height="450" Width="800">
+        Title="LeaderBoardWindow" Height="450" Width="800" Background="#FF2E2222">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Leaderboards" HorizontalAlignment="Left" Margin="299,10,0,0" VerticalAlignment="Top" Width="196" Foreground="White" FontSize="24" FontFamily="Stencil" Height="37" Grid.Column="1"/>
+        <ListBox x:Name="lsLeaderboard" HorizontalAlignment="Left" Height="357" Margin="10,53,0,0" VerticalAlignment="Top" Width="774" Background="Transparent" Grid.ColumnSpan="2" Foreground="White" FontSize="22" FontFamily="Verdana"/>
+        <Button x:Name="btnRefresh" Content="Refresh" HorizontalAlignment="Left" Margin="495,11,0,0" VerticalAlignment="Top" Width="99" Height="37" Background="#FF624F4F" Click="BtnRefresh_Click" Grid.Column="1"/>
+        <Button x:Name="btnHome" Content="Home" HorizontalAlignment="Left" Margin="195,10,0,0" VerticalAlignment="Top" Width="99" Height="37" Background="#FF624F4F" Click="BtnHome_Click" Grid.Column="1"/>
+
     </Grid>
 </Window>
