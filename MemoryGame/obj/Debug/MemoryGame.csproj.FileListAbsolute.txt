@@ -43,3 +43,5 @@ D:\SpartaGlobal\GameProject\MemoryGame\obj\Debug\MemoryGame.g.resources
 D:\SpartaGlobal\GameProject\MemoryGame\obj\Debug\MemoryGame.Properties.Resources.resources
 D:\SpartaGlobal\GameProject\MemoryGame\obj\Debug\MemoryGame.csproj.GenerateResource.cache
 D:\SpartaGlobal\GameProject\MemoryGame\obj\Debug\MemoryGame.csproj.CoreCompileInputs.cache
+C:\Users\Brandon Stephens\Documents\Programming\Visual Studio Code\Game Project\MemoryGame\MemoryGame\obj\Debug\Finished.g.cs
+C:\Users\Brandon Stephens\Documents\Programming\Visual Studio Code\Game Project\MemoryGame\MemoryGame\obj\Debug\Finished.baml
