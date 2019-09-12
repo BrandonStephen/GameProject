@@ -58,7 +58,7 @@ namespace MemoryGame
 
         private void BtnHome_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
+            this.Close();
             MainWindow mw = new MainWindow();
             mw.Show();
         }

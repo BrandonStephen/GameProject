@@ -4,11 +4,11 @@
 winexe
 C#
 .cs
-D:\SpartaGlobal\GameProject\MemoryGame\obj\Debug\
+D:\SpartaGlobal\GameProject\MemoryGame\obj\Release\
 MemoryGame
 none
 false
-DEBUG;TRACE
+TRACE
 D:\SpartaGlobal\GameProject\MemoryGame\App.xaml
 5-857096815
 
@@ -16,5 +16,5 @@ D:\SpartaGlobal\GameProject\MemoryGame\App.xaml
 151002397254
 GameWindow.xaml;LeaderBoardWindow.xaml;LoseWindow.xaml;MainWindow.xaml;SettingsWindow.xaml;
 
-False
+True
 

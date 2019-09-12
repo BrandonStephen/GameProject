@@ -10,6 +10,7 @@ namespace MemoryGame
 {
     class DBManager
     {
+        // SqlConnection conn = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MyGame;MultipleActiveResultSets=true;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
         SqlConnection conn = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MyGame;MultipleActiveResultSets=true;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
         public List<Leaderboard> displayLeaderboards()
         {
@@ -18,7 +19,7 @@ namespace MemoryGame
             try
             {
                 conn.Open();
-                SqlCommand select = new SqlCommand($"select * from leaderboards_table", conn);
+                SqlCommand select = new SqlCommand($"select TOP 10 * from leaderboards_table ORDER BY score ACS", conn);
                 SqlDataReader reader = select.ExecuteReader();
                 
                 
@@ -49,7 +50,7 @@ namespace MemoryGame
             try
             {
                 conn.Open();
-                SqlCommand insert = new SqlCommand($"INSERT INTO leaderboards_table VALUES ('{leaderboard.Name}', '{leaderboard.Difficulty}','{leaderboard.GridSize.ToString()}', '{leaderboard.Score.ToString()}', '{leaderboard.Wave.ToString()}')", conn);
+                SqlCommand insert = new SqlCommand($"INSERT INTO leaderboards_table VALUES ('{leaderboard.Name.ToString()}', '{leaderboard.Score.ToString()}', '{leaderboard.Wave.ToString()}', '{leaderboard.Difficulty.ToString()}','{leaderboard.GridSize.ToString()}')", conn);
                 insert.ExecuteReader();
             }
             catch (SqlException sql)

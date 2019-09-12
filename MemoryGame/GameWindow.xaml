@@ -13,7 +13,7 @@
         </Grid>
         <Button x:Name="btnStart" Content="Start" HorizontalAlignment="Left" Margin="314,7,0,0" VerticalAlignment="Top" Width="75" Click="BtnStart_Click"/>
         <Label Content="Wave" HorizontalAlignment="Left" Margin="701,4,0,0" VerticalAlignment="Top" Width="44" Foreground="White" Height="26"/>
-        <Button x:Name="btnMainManu" Content="Main Menu" HorizontalAlignment="Left" Margin="394,7,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btnMainManu" Content="Main Menu" HorizontalAlignment="Left" Margin="394,7,0,0" VerticalAlignment="Top" Width="75" Click="BtnMainMenu_Click"/>
         <Label Content="Score" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="26" Foreground="White"/>
     </Grid>
 </Window>

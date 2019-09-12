@@ -29,7 +29,7 @@ namespace MemoryGame
             Game game = new Game();
             InitializeComponent();
             
-            
+                    
             Board board = game.initialise(lblScore, lblWave, btnStart);
             this.tempGrid.Children.Add(game.start(board, out List<Colours> colours));
             this.board = board;
@@ -43,6 +43,13 @@ namespace MemoryGame
             Game game = new Game();
             board.StartGame.IsEnabled = false;
             game.begin(board, colours);
+        }
+
+        private void BtnMainMenu_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+            MainWindow mw = new MainWindow();
+            mw.Show();
         }
     }
 
@@ -132,10 +139,6 @@ namespace MemoryGame
                 colours[board.RandomPattern[i]].Button.IsEnabled = true;  //Background = new BrushConverter().ConvertFromString(colours[board.RandomPattern[i]].Colour) as SolidColorBrush;
        
             }
-            int tempWave = Convert.ToInt32(board.Wave.Content);
-            tempWave++;
-            board.Wave.Content = tempWave.ToString();
-
         }
 
         public int getWaitTime(Board board)
@@ -169,8 +172,8 @@ namespace MemoryGame
 
         private void CheckPattern()
         {
-            if (board.UserChoice.Count == Convert.ToInt32(board.Wave.Content) - 1)
-            {
+            bool willContinue = true;
+            
                 for (int i = 0; i < board.UserChoice.Count; i++)
                 {
                     if (!(board.UserChoice[i] == board.RandomPattern[i]))
@@ -186,16 +189,64 @@ namespace MemoryGame
                         MessageBox.Show("Failed");
                         MainWindow mw = new MainWindow();
                         
+                        mw.Show();
+                        willContinue = false;
                         break;
                         
                     }
                 }
-                board.UserChoice.Clear();
-                double tempScore = Convert.ToInt32(board.Score.Content);
-                tempScore += 1 + (board.UserChoice.Count * (10 * Math.Sqrt(board.ColourCount)));
-                board.Score.Content = tempScore.ToString();
-                begin(board, colours);
+                
+                board.Score.Content = newScore(board).ToString();
+                if (Convert.ToInt32(board.Wave.Content) == this.board.UserChoice.Count)
+                {
+                    board.UserChoice.Clear();
+                    if (willContinue)
+                    {
+                        updateWave(this.board);
+                        begin(board, colours);
+                    }
+                }
+                
+                
+            
+        }
+
+        public void updateWave(Board board)
+        {
+            int tempWave = Convert.ToInt32(board.Wave.Content);
+            tempWave++;
+            board.Wave.Content = tempWave.ToString();
+        }
+
+        public double newScore(Board board)
+        {
+            int difficulty = 0;
+            switch (board.Difficulty)
+            {
+                case "Easy":
+                    difficulty = 5;
+                    break;
+                case "Medium":
+                    difficulty = 10;
+                    break;
+                case "Hard":
+                    difficulty = 30;
+                    break;
+                case "Impossible":
+                    difficulty = 50;
+                    break;
             }
+            
+            double tempScore = Convert.ToInt32(board.Score.Content);
+            tempScore += 1 * (board.UserChoice.Count * (difficulty * Math.Sqrt(board.ColourCount)));
+
+            Random rnd = new Random();
+            if (rnd.Next(10) == 3)
+            {
+                tempScore += 100;
+            }
+
+            return tempScore;
         }
     }
     class Board
