@@ -27,7 +27,7 @@ namespace MemoryGame
             foreach (Leaderboard lb in leaderboards)
             {
                 TextBox tx = new TextBox();
-                tx.Text = $"{lb.Name} | {lb.Difficulty} | {lb.GridSize} | {lb.Score} | {lb.Wave}";
+                tx.Text = $"Name: {lb.Name} - Difficulty: {lb.Difficulty} - GridSize: {lb.GridSize} - Score: {lb.Score} - Wave: {lb.Wave}";
                 lsLeaderboard.Items.Add(tx.Text);
             }
         }

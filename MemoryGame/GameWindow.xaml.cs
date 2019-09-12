@@ -29,15 +29,19 @@ namespace MemoryGame
             Game game = new Game();
             InitializeComponent();
             
-                    
-            Board board = game.initialise(lblScore, lblWave, btnStart);
+            // This creates a board Object, this is the foundation for the entire game
+            Board board = game.initialise(lblScore, lblWave, btnStart, btnMainManu);
+            // This is where a grid is dynamically created and then added to an existing grid on the XMAL
             this.tempGrid.Children.Add(game.start(board, out List<Colours> colours));
+            // Allows the board Obj to be available for other methods
             this.board = board;
+            // Allows the board Obj to be available for other methods
             this.colours = colours;
             
             
         }
 
+        // This Button event will start the game
         private void BtnStart_Click(object sender, RoutedEventArgs e)
         {
             Game game = new Game();
@@ -45,6 +49,7 @@ namespace MemoryGame
             game.begin(board, colours);
         }
 
+        // This button event will stop the game and return the user to the main menu.
         private void BtnMainMenu_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -57,7 +62,8 @@ namespace MemoryGame
     {
         private List<Colours> colours;
         private Board board;
-        public Board initialise(Label score, Label wave, Button start)
+        // This is where most of the components are initialised. This includes the random pattern and assignment of settings.
+        public Board initialise(Label score, Label wave, Button start, Button closeWindow)
         {
             Random rn = new Random();
             List<int> pattern = new List<int>();
@@ -68,16 +74,17 @@ namespace MemoryGame
             {
                 pattern.Add(rn.Next((settings.GridSize * settings.GridSize)));
             }
-            Board board = new Board((settings.GridSize * settings.GridSize), pattern, settings.Difficulty, 40, 40, score, wave, start, new List<int>());
+            Board board = new Board((settings.GridSize * settings.GridSize), pattern, settings.Difficulty, 40, 40, score, wave, start, new List<int>(), closeWindow);
             return board;
         }
 
         public Grid start(Board board, out List<Colours> colours)
         {
-
+            // Creates the grid 
             Grid grid = board.createGrids(board.ColourCount, board.Height, board.Width);
             List<Colours> colObj = new List<Colours>();
             int count = 1;
+            // These are colours that can be used to make the grids have a multitude of colours
             List<Brush> Hashcolours = new List<Brush>();
             Hashcolours.Add(Brushes.Red);
             Hashcolours.Add(Brushes.Yellow);
@@ -93,6 +100,7 @@ namespace MemoryGame
             DBManager db = new DBManager();
             Settings settings = db.checkSettings();
 
+            // This loop goes through all of the grids and assigns a button to it, it also creates a Colour object
             for (int i = 0; i < Math.Sqrt(board.ColourCount); i++)
             {
                 for (int j = 0; j < Math.Sqrt(board.ColourCount); j++)
@@ -122,6 +130,8 @@ namespace MemoryGame
 
             }
 
+
+            // Returns a grid, the colours and makes them available for the current class.
             this.colours = colObj;
             this.board = board;
             colours = colObj;
@@ -129,6 +139,7 @@ namespace MemoryGame
 
         }
 
+        // Starts the game
         public async void begin(Board board, List<Colours> colours)
         {
             for (int i = 0; i < (Convert.ToInt32(board.Wave.Content)); i++)
@@ -141,6 +152,7 @@ namespace MemoryGame
             }
         }
 
+        // Gets the wait time based on the difficulty.
         public int getWaitTime(Board board)
         {
             int time = 0;
@@ -164,37 +176,51 @@ namespace MemoryGame
 
         public void Button_Click(object sender, EventArgs e)
         {
-            Button b = (Button)sender;
-            string tempString = b.Name.Replace("Button", "");
-            this.board.UserChoice.Add(Convert.ToInt32(tempString));
-            CheckPattern();
+            if (!(this.board.StartGame.IsEnabled))
+            {
+                Button b = (Button)sender;
+                string tempString = b.Name.Replace("Button", "");
+                this.board.UserChoice.Add(Convert.ToInt32(tempString));
+                CheckPattern();
+            }
         }
 
         private void CheckPattern()
         {
             bool willContinue = true;
             
-                for (int i = 0; i < board.UserChoice.Count; i++)
+            for (int i = 0; i < board.UserChoice.Count; i++)
+            {
+                if (!(board.UserChoice[i] == board.RandomPattern[i]))
                 {
-                    if (!(board.UserChoice[i] == board.RandomPattern[i]))
-                    {
 
-                        DBManager db = new DBManager();
-                        Settings settings = db.checkSettings();
-                        if (settings.LeaderBoards)
-                        {
-                            Leaderboard leaderboard = new Leaderboard(settings.Name, Convert.ToInt32(board.Score.Content), Convert.ToInt32(board.Wave.Content), board.Difficulty, board.ColourCount);
-                            db.addToLeaderboards(leaderboard);
-                        }
-                        MessageBox.Show("Failed");
-                        MainWindow mw = new MainWindow();
-                        
-                        mw.Show();
-                        willContinue = false;
-                        break;
-                        
+                    DBManager db = new DBManager();
+                    Settings settings = db.checkSettings();
+                    if (settings.LeaderBoards)
+                    {
+                        Leaderboard leaderboard = new Leaderboard(settings.Name, Convert.ToInt32(board.Score.Content), Convert.ToInt32(board.Wave.Content), board.Difficulty, board.ColourCount);
+                        db.addToLeaderboards(leaderboard);
                     }
+                    MessageBox.Show($"You got to wave {board.Wave.Content}, and scored {board.Score.Content} points");
+
+                    List<int> pattern = new List<int>();
+                    Random rn = new Random();
+                    for (int x = 0; x < 1000; x++)
+                    {
+                        pattern.Add(rn.Next((board.ColourCount)));
+                    }
+                    board.RandomPattern = pattern;
+                    board.StartGame.IsEnabled = true;
+                    board.Score.Content = "0";
+                    board.Wave.Content = "1";
+                    board.UserChoice.Clear();
+
+                    willContinue = false;
+                    break;
+
+                
                 }
+            }
                 
                 board.Score.Content = newScore(board).ToString();
                 if (Convert.ToInt32(board.Wave.Content) == this.board.UserChoice.Count)
@@ -260,10 +286,11 @@ namespace MemoryGame
         private Label wave;
         private Button startGame;
         private List<int> userChoice;
+        private Button closeGame;
 
         
 
-        public Board(int colourCount, List<int> randomPattern, string difficulty, int height, int width, Label score, Label wave, Button start, List<int> userList)
+        public Board(int colourCount, List<int> randomPattern, string difficulty, int height, int width, Label score, Label wave, Button start, List<int> userList, Button closeGame)
         {
             this.colourCount = colourCount;
             this.randomPattern = randomPattern;
@@ -274,6 +301,7 @@ namespace MemoryGame
             this.wave = wave;
             this.startGame = start;
             this.userChoice = userList;
+            this.closeGame = closeGame;
 
         }
 
@@ -286,6 +314,7 @@ namespace MemoryGame
         public Label Wave { get => wave; set => wave = value; }
         public Button StartGame { get => startGame; set => startGame = value; }
         public List<int> UserChoice { get => userChoice; set => userChoice = value; }
+        public Button CloseGame { get => closeGame; set => closeGame = value; }
 
         public Grid createGrids(int size, int width, int height)
         {

@@ -13,9 +13,10 @@
             <ColumnDefinition Width="433*"/>
         </Grid.ColumnDefinitions>
         <Image x:Name="logoimg" HorizontalAlignment="Left" Height="81" Margin="3.8,10,0,0" VerticalAlignment="Top" Width="403" Source="Resources/logo.png" Grid.ColumnSpan="2" Grid.Column="1"/>
-        <Button x:Name="btnLeaderboards" Content="LeaderBoards" Grid.Column="1" HorizontalAlignment="Left" Margin="77.8,284,0,0" VerticalAlignment="Top" Width="240" Height="51" Grid.ColumnSpan="2" Click="BtnLeaderboards_Click"/>
-        <Button x:Name="btnSettings" Content="Settings" Grid.Column="1" HorizontalAlignment="Left" Margin="77.8,215,0,0" VerticalAlignment="Top" Width="240" Height="51" Grid.ColumnSpan="2" Click="BtnSettings_Click"/>
-        <Button x:Name="btnPlay" Content="Play" Grid.Column="1" HorizontalAlignment="Left" Margin="77.8,148,0,0" VerticalAlignment="Top" Width="240" Height="51" Grid.ColumnSpan="2" Click="BtnPlay_Click"/>
+        <Button x:Name="btnLeaderboards" Content="LeaderBoards" Grid.Column="1" HorizontalAlignment="Left" Margin="77.8,270,0,0" VerticalAlignment="Top" Width="240" Height="51" Grid.ColumnSpan="2" Click="BtnLeaderboards_Click"/>
+        <Button x:Name="btnSettings" Content="Settings" Grid.Column="1" HorizontalAlignment="Left" Margin="77.8,201,0,0" VerticalAlignment="Top" Width="240" Height="51" Grid.ColumnSpan="2" Click="BtnSettings_Click"/>
+        <Button x:Name="btnPlay" Content="Play" Grid.Column="1" HorizontalAlignment="Left" Margin="77.8,134,0,0" VerticalAlignment="Top" Width="240" Height="51" Grid.ColumnSpan="2" Click="BtnPlay_Click"/>
+        <Button x:Name="btnExit" Content="Exit" Grid.Column="1" HorizontalAlignment="Left" Margin="77.8,336,0,0" VerticalAlignment="Top" Width="240" Height="51" Grid.ColumnSpan="2" Click="BtnExit_Click"/>
 
     </Grid>
 </Window>

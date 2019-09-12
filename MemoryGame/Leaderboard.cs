@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MemoryGame
 {
+    // This class is responsible for creating a Leaderboard Object. This is used to populate the leaderboards Window
     class Leaderboard
     {
         private string name;

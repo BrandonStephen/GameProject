@@ -47,5 +47,10 @@ namespace MemoryGame
             this.Hide();
             lb.Show();
         }
+
+        private void BtnExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

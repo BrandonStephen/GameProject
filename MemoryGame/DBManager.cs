@@ -18,11 +18,12 @@ namespace MemoryGame
        
             try
             {
+                // This will open a connection to the DB
                 conn.Open();
-                SqlCommand select = new SqlCommand($"select TOP 10 * from leaderboards_table ORDER BY score ACS", conn);
+                SqlCommand select = new SqlCommand($"select * from leaderboards_table", conn);
                 SqlDataReader reader = select.ExecuteReader();
                 
-                
+                // This will read the data from the DB and create a new object with those properties.
                 while (reader.Read())
                 {
                     leaderboards.Add(new Leaderboard(reader["name"].ToString(), Convert.ToInt32(reader["score"]), Convert.ToInt32(reader["wave"]),
@@ -32,11 +33,13 @@ namespace MemoryGame
             }
             catch (SqlException sql)
             {
+                // THis will send a message to the console if the SQL connection failed
                 Console.WriteLine($"{sql.Message}");
                 Console.ReadLine();
             }
             finally
             {
+                // At the end of the tast, the connection will be terminated. This is to save memory. 
                 conn.Close();
             }
             return leaderboards;
@@ -44,6 +47,7 @@ namespace MemoryGame
         }
 
 
+        // This Method is responsible for adding new entries to the leaderboards DB
         public void addToLeaderboards(Leaderboard leaderboard)
         {
         
@@ -62,7 +66,8 @@ namespace MemoryGame
                 conn.Close();
             }
         }
-
+     
+        // THis method will check to see if the settings already exist within the DB.
         public Settings checkSettings()
         {
             Settings settings = null;
@@ -99,6 +104,7 @@ namespace MemoryGame
             return settings;
         }
 
+        // This Method will add entries to the settings DB
         public void addSettings(Settings settings)
         {
             try
@@ -116,6 +122,7 @@ namespace MemoryGame
             }
         }
 
+        // Finally, this Method will update the settings in the settings DB
         public void updateSettings(Settings settings)
         {
             conn.Open();

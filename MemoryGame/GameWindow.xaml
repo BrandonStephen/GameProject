@@ -3,7 +3,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:MemoryGame"
         mc:Ignorable="d" Title="Memory Game" Height="450" Width="800" Background="#FF2E2222">
     <Grid HorizontalAlignment="Left" Height="419" VerticalAlignment="Top" Width="790">
-        <Label x:Name="lblScore" Content="0" HorizontalAlignment="Left" Margin="60,0,0,0" VerticalAlignment="Top" Width="41" Foreground="White" Height="26"/>
+        <Label x:Name="lblScore" Content="0" HorizontalAlignment="Left" Margin="60,0,0,0" VerticalAlignment="Top" Width="102" Foreground="White" Height="26"/>
         <Label x:Name="lblWave" Content="1" HorizontalAlignment="Left" Margin="745,4,0,0" VerticalAlignment="Top" Width="25" Foreground="White"/>
         <Grid x:Name="tempGrid" HorizontalAlignment="Left" Height="368" Margin="10,41,0,0" VerticalAlignment="Top" Width="770" RenderTransformOrigin="0.595,0.496">
             <Grid.ColumnDefinitions>
